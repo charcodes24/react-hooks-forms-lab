@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { v4 as uuid } from "uuid";
 
-function ItemForm(props) {
+function ItemForm({ update }) {
+
+  function handleSubmit(e) {
+    e.preventDefault();
+   const newItem = {
+    id: uuid(), 
+    name: e.target[0].value,
+    category: e.target[1].value,
+  };
+  update(newItem)
+
+  }
+
   return (
-    <form className="NewItem">
+    <form onSubmit={handleSubmit} className="NewItem">
       <label>
         Name:
         <input type="text" name="name" />
